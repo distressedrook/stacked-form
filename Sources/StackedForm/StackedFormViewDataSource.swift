@@ -22,7 +22,7 @@ import UIKit
      Asks the data source for a stacked form element to insert in a particular location of the stacked form view.
      - Parameter stackedFormView: The stacked form view informing the delegate of this impending event.
      - Parameter index: The position at which this stacked form element needs to be shown
-     - Returns: The number of elements in the stack view.
+     - Returns: The stacked form element that needs to be insert at the position
      */
     func stackedFormView(_ stackedFormView: StackedFormView, stackedFormElementAt index: Int) -> StackedFormElement
 }
