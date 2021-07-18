@@ -9,6 +9,11 @@ import UIKit
 
 /**
  Create an instance of this view to avail the stacked form.
+ 
+ **Important:**
+ - Care needs to be taken that there is enough space to display all the form elements. Should the size of this view be smaller than its contents, there is no scrolling support as yet and your view *will* break.
+ - It is also safe to say that this library may not work best in landscape mode, where the height becomes too small to embed any meaningful form.
+ - This library remains untested on an iPad, but there's no reason to believe that it would not work on an it.
  */
 open class StackedFormView: UIView {
     private static let MIN_ELEMENTS_COUNT = 2
@@ -53,7 +58,7 @@ extension StackedFormView {
      */
     open func setup() {
         guard dataSource != nil else {
-            fatalError("Ensure that the data source has been set. Terminating...")
+            fatalError("Ensure that the data source has been set. Terminating.")
         }
         self.reset()
         self.addCtaButton()
