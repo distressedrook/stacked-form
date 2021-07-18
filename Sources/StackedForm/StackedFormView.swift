@@ -1,5 +1,5 @@
 //
-//  StackedFormViewController.swift
+//  StackedFormView.swift
 //  StackedForm
 //
 //  Created by Avismara HL on 17/07/21.
@@ -7,13 +7,23 @@
 
 import UIKit
 
+/**
+ Create an instance of this view to avail the stacked form.
+ */
 open class StackedFormView: UIView {
     private static let MIN_ELEMENTS_COUNT = 2
     private static let MAX_ELEMENTS_COUNT = 4
     private static let ANIMATION_TIME = 0.3
     static let OVERLAP_HEIGHT: CGFloat = 50
     
+    /**
+     The object that acts as the delegate of the stacked form view.
+     */
     @IBOutlet public weak var delegate: StackedFormViewDelegate?
+    
+    /**
+     The object that acts as the data source of the stacked form view.
+     */
     @IBOutlet public weak var dataSource: StackedFormViewDataSource!
     
     private var numberOfItems = 2
@@ -24,6 +34,11 @@ open class StackedFormView: UIView {
 
 //MARK: Public Methods
 extension StackedFormView {
+    /**
+     Returns the stacked form element at the asked index.
+     - Parameter index: The index locating the stacked form element in the view.
+     - Returns: Stacked form element at the given index. `nil` if the index is invalid.
+     */
     open func stackedFormElement(at index: Int) -> StackedFormElement? {
         if index < 0 || index >= self.numberOfItems {
             return nil
@@ -31,7 +46,15 @@ extension StackedFormView {
         return self.elementInfos[index].stackedFormElement
     }
     
+    /**
+     Resets the current state of stacked form view and queries the data source to show the view. Stacked form view will **not** behave as expected unless this method is called.
+     
+     **Important**: Call this method only *after* setting the `dataSource` property. Will result in a crash otherwise.
+     */
     open func setup() {
+        guard dataSource != nil else {
+            fatalError("Ensure that the data source has been set. Terminating...")
+        }
         self.reset()
         self.addCtaButton()
         self.queryNumberOfItems()
@@ -58,7 +81,7 @@ extension StackedFormView {
     private func addCtaButton() {
         self.addSubview(self.ctaButton)
         self.ctaButton.addTarget(self, action: #selector(StackedFormView.didTapNextButton(sender:)), for: .touchUpInside)
-        let buttonHeight = self.dataSource.heightForCtaButton(in: self)
+        let buttonHeight = self.delegate?.heightForCtaButton(in: self) ?? StackFormViewAutomaticCtaButtonHeight
         let heightConstraint = ctaButton.heightAnchor.constraint(equalToConstant: buttonHeight)
         NSLayoutConstraint.activate([
             ctaButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
@@ -72,7 +95,7 @@ extension StackedFormView {
     }
     
     private func queryNumberOfItems() {
-        let numberOfItems = dataSource.numberOfItems(in: self)
+        let numberOfItems = dataSource.numberOfElements(in: self)
         if numberOfItems < StackedFormView.MIN_ELEMENTS_COUNT  {
             fatalError("The number of steps in the form cannot be lesser than \(StackedFormView.MIN_ELEMENTS_COUNT)")
         } else if numberOfItems > StackedFormView.MAX_ELEMENTS_COUNT {
@@ -81,7 +104,7 @@ extension StackedFormView {
     }
     
     private func queryElements() {
-        self.numberOfItems = self.dataSource.numberOfItems(in: self)
+        self.numberOfItems = self.dataSource.numberOfElements(in: self)
         for i in 0 ..< numberOfItems {
             self.addElement(at: i)
         }
@@ -148,7 +171,7 @@ extension StackedFormView {
         
         self.styleCtaButton(valid: stackedFormElement.valid)
         
-        let height = self.dataSource.stackedFormView(self, collapsedHeightForElementAt: index)
+        let height = self.delegate?.stackedFormView(self, collapsedHeightForElementAt: index) ?? StackFormViewAutomaticElementHeight
         let view = self.view(for: index)
         
         let heightConstraint = view.heightAnchor.constraint(equalToConstant: height)
@@ -236,7 +259,8 @@ extension StackedFormView {
         elementInfo.viewArea.backgroundColor = elementInfo.stackedFormElement.expandedView.backgroundColor
         self.stickSidesOfView(view: elementInfo.viewArea, to: elementInfo.stackedFormElement.collapsedView)
         elementInfo.stackedFormElement.collapsedView.alpha = 0
-        elementInfo.heightConstraint.constant = self.dataSource.stackedFormView(self, collapsedHeightForElementAt: index) + StackedFormView.OVERLAP_HEIGHT
+        let height = self.delegate?.stackedFormView(self, collapsedHeightForElementAt: index) ?? StackFormViewAutomaticElementHeight
+        elementInfo.heightConstraint.constant = height + StackedFormView.OVERLAP_HEIGHT
     }
     
     private func prepareElementToExpand(_ elementInfo: ElementInfo, at index: Int) {
