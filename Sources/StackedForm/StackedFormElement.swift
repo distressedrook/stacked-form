@@ -9,6 +9,8 @@ import UIKit
 
 /**
  Protocol that represents each collapsed/expanded state of the stacked form view. Create an element by implementing this protocol for supplying it to the stack form view.
+ 
+ **Important:** When you are designing `expandedView`, make sure you are laying out constraints in a top-bottom fashion and that none of the views' positions are dependant on the `bottomAnchor` of  `expandedView`. Laying out this way might cause the view to go out of bounds.
  */
 @objc public protocol StackedFormElement {
     /**
