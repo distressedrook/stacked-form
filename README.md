@@ -4,6 +4,75 @@ Easily create highly customisable stacked forms that look like this. This README
 
 <img src="https://s6.gifyu.com/images/Simulator-Screen-Recording---iPhone-12-mini---2021-07-19-at-00.43.47.gif" width="25%" height="25%"/>
 
+# Table of Contents
+- [Stacked Form](#stacked-form)
+- [StackedFormView](#stackedformview)
+  * [Inheritance](#inheritance)
+  * [Properties](#properties)
+    + [`delegate`](#-delegate-)
+    + [`dataSource`](#-datasource-)
+  * [Methods](#methods)
+    + [`stackedFormElement(at:)`](#-stackedformelement-at---)
+      - [Parameters](#parameters)
+      - [Returns](#returns)
+    + [`setup()`](#-setup---)
+    + [`didFinishInput(in:)`](#-didfinishinput-in---)
+    + [`dataDidBecomeInvalid(in:)`](#-datadidbecomeinvalid-in---)
+    + [`dataDidBecomeValid(in:)`](#-datadidbecomevalid-in---)
+- [StackedFormViewDataSource](#stackedformviewdatasource)
+  * [Inheritance](#inheritance-1)
+  * [Requirements](#requirements)
+    + [numberOfElements(in:​)](#numberofelements-in---)
+      - [Parameters](#parameters-1)
+      - [Returns](#returns-1)
+    + [stackedFormView(\_:​stackedFormElementAt:​)](#stackedformview-----stackedformelementat---)
+      - [Parameters](#parameters-2)
+      - [Returns](#returns-2)
+- [StackedFormViewDelegate](#stackedformviewdelegate)
+  * [Inheritance](#inheritance-2)
+  * [Requirements](#requirements-1)
+    + [stackedFormView(\_:​styleButtonForInvalidStateWith:​)](#stackedformview-----stylebuttonforinvalidstatewith---)
+      - [Parameters](#parameters-3)
+    + [stackedFormView(\_:​styleButtonForValidStateWith:​)](#stackedformview-----stylebuttonforvalidstatewith---)
+      - [Parameters](#parameters-4)
+    + [stackedFormView(\_:​didCompleteFormWith:​)](#stackedformview-----didcompleteformwith---)
+      - [Parameters](#parameters-5)
+    + [stackedFormView(\_:​collapsedHeightForElementAt:​)](#stackedformview-----collapsedheightforelementat---)
+      - [Parameters](#parameters-6)
+      - [Returns](#returns-3)
+    + [heightForCtaButton(in:​)](#heightforctabutton-in---)
+      - [Parameters](#parameters-7)
+      - [Returns](#returns-4)
+  * [Optional Requirements](#optional-requirements)
+    + [stackedFormView(\_:​willElementExpandAt:​)](#stackedformview-----willelementexpandat---)
+      - [Parameters](#parameters-8)
+    + [stackedFormView(\_:​willElementCollapseAt:​)](#stackedformview-----willelementcollapseat---)
+      - [Parameters](#parameters-9)
+    + [stackedFormView(\_:​didElementExpandAt:​)](#stackedformview-----didelementexpandat---)
+      - [Parameters](#parameters-10)
+    + [stackedFormView(\_:​didElementCollapseAt:​)](#stackedformview-----didelementcollapseat---)
+      - [Parameters](#parameters-11)
+- [StackedFormElement](#stackedformelement)
+  * [Default Implementations](#default-implementations)
+    + [`overlapSpace`](#-overlapspace-)
+  * [Requirements](#requirements-2)
+    + [collapsedView](#collapsedview)
+    + [expandedView](#expandedview)
+    + [collapsedViewHeight](#collapsedviewheight)
+    + [ctaButtonText](#ctabuttontext)
+    + [valid](#valid)
+    + [delegate](#delegate)
+    + [prepareToCollapse()](#preparetocollapse--)
+    + [prepareToExpand()](#preparetoexpand--)
+- [StackedFormElementDelegate](#stackedformelementdelegate)
+  * [Requirements](#requirements-3)
+    + [dataDidBecomeInvalid(in:​)](#datadidbecomeinvalid-in---)
+      - [Parameters](#parameters-12)
+    + [dataDidBecomeValid(in:​)](#datadidbecomevalid-in---)
+      - [Parameters](#parameters-13)
+    + [didFinishInput(in:​)](#didfinishinput-in---)
+      - [Parameters](#parameters-14)
+
 # StackedFormView
 
 Create an instance of this view to avail the stacked form.
@@ -70,6 +139,23 @@ open func setup()
 
 **Important**: Call this method only *after* setting the `dataSource` property. Will result in a crash otherwise.
 
+### `didFinishInput(in:)`
+
+``` swift
+public func didFinishInput(in stackedFormElement: StackedFormElement) 
+```
+
+### `dataDidBecomeInvalid(in:)`
+
+``` swift
+public func dataDidBecomeInvalid(in stackedFormElement: StackedFormElement) 
+```
+
+### `dataDidBecomeValid(in:)`
+
+``` swift
+public func dataDidBecomeValid(in stackedFormElement: StackedFormElement) 
+```
 # StackedFormViewDataSource
 
 Methods for asking the number of stack view elements and the stack view element at a particular index.
