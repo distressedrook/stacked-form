@@ -86,7 +86,7 @@ open class StackedFormView: UIView
 
   - It is also safe to say that this library may not work best in landscape mode, where the height becomes too small to embed any meaningful form.
 
-  - This library remains untested on an iPad, but there's no reason to believe that it would not work it.
+  - This library remains untested on an iPad, but there's no reason to believe that it would not work on it.
 
 ## Inheritance
 
