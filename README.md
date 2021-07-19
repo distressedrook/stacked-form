@@ -70,23 +70,6 @@ open func setup()
 
 **Important**: Call this method only *after* setting the `dataSource` property. Will result in a crash otherwise.
 
-### `didFinishInput(in:)`
-
-``` swift
-public func didFinishInput(in stackedFormElement: StackedFormElement) 
-```
-
-### `dataDidBecomeInvalid(in:)`
-
-``` swift
-public func dataDidBecomeInvalid(in stackedFormElement: StackedFormElement) 
-```
-
-### `dataDidBecomeValid(in:)`
-
-``` swift
-public func dataDidBecomeValid(in stackedFormElement: StackedFormElement) 
-```
 # StackedFormViewDataSource
 
 Methods for asking the number of stack view elements and the stack view element at a particular index.
