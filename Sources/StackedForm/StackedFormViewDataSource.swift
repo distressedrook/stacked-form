@@ -5,6 +5,7 @@
 //  Created by Avismara HL on 17/07/21.
 //
 
+#if !os(macOS)
 import UIKit
 
 /**
@@ -26,3 +27,4 @@ import UIKit
      */
     func stackedFormView(_ stackedFormView: StackedFormView, stackedFormElementAt index: Int) -> StackedFormElement
 }
+#endif

@@ -4,7 +4,7 @@
 //
 //  Created by Avismara HL on 17/07/21.
 //
-
+#if !os(macOS)
 import UIKit
 
 /**
@@ -100,7 +100,7 @@ extension StackedFormView {
     }
     
     private func queryNumberOfItems() {
-        let numberOfItems = dataSource.numberOfElements(in: self)
+        numberOfItems = dataSource.numberOfElements(in: self)
         if numberOfItems < StackedFormView.MIN_ELEMENTS_COUNT  {
             fatalError("The number of steps in the form cannot be lesser than \(StackedFormView.MIN_ELEMENTS_COUNT)")
         } else if numberOfItems > StackedFormView.MAX_ELEMENTS_COUNT {
@@ -367,3 +367,4 @@ extension StackedFormView: StackedFormElementDelegate {
         self.delegate?.stackedFormView(self, styleButtonForValidStateWith: self.ctaButton)
     }
 }
+#endif

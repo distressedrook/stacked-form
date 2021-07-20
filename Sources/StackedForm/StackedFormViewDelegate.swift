@@ -5,6 +5,7 @@
 //  Created by Avismara HL on 17/07/21.
 //
 
+#if !os(macOS)
 import UIKit
 
 /**
@@ -75,3 +76,4 @@ import UIKit
      */
     func heightForCtaButton(in stackedFormView: StackedFormView) -> CGFloat
 }
+#endif
