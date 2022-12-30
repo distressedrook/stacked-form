@@ -2,7 +2,7 @@
 
 Easily create highly customisable stacked forms on iOS that behave like this: 
 
-<img src="https://s6.gifyu.com/images/Simulator-Screen-Recording---iPhone-12-mini---2021-07-19-at-00.43.47.gif" width="25%" height="25%"/>
+<img src="https://media.giphy.com/media/zT5oQ34e7nHQGvZG64/giphy.gif" width="25%" height="25%"/>
 
 This README contains documentation only. Usage guide and example projects will be added soon. [Inspiration.](https://dribbble.com/shots/5721735-InVision-Studio-Spaced-App)
 
